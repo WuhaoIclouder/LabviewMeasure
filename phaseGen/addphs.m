@@ -6,5 +6,5 @@ phse = load(phsefile);
 phs = load(phsfile);
 phsp = phse+phs;
 phsp = mod(phsp,256);
-dlmwrite('phsadded2.txt',phsp,'precision','%u') 
+dlmwrite('big22.txt',phsp,'precision','%u') 
 
