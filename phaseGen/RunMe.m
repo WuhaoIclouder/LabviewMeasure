@@ -66,6 +66,8 @@ U = angle(U);
 % Intensity3D
 U=floor((U+pi)/2/pi*256);%将相位化为整数使用
 U=255-U;
+phaseChange = [25,53,56:64];
+U(phaseChange) = 255-U(phaseChange);
 
 
 phasemat = [phasemat;U'];
