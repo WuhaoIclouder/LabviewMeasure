@@ -40,7 +40,13 @@ switch transducer
         ElementR = 0.005;
         NumRadius = 20;
         NumAngle = 20;
-        freq = 1.37e6;        
+        freq = 1.37e6;
+    case 4
+        trans_name = 'BNo1t';
+        ElementR = 0.005;
+        NumRadius = 20;
+        NumAngle = 20;
+        freq = 1.37e6;
 end
 filename = [trans_name,filename];
 TDATA = load([trans_name,'.txt']);
