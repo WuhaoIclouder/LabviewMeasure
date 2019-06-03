@@ -47,6 +47,24 @@ switch transducer
         NumRadius = 20;
         NumAngle = 20;
         freq = 1.37e6;
+    case 5
+        trans_name = 'ANo21';
+        ElementR = 0.0045;
+        NumRadius = 20;
+        NumAngle = 20;
+        freq = 1.37e6;
+    case 6
+        trans_name = 'FS';
+        ElementR = 0.005;
+        NumRadius = 20;
+        NumAngle = 20;
+        freq = 1.36e6;
+    case 7
+        trans_name = 'XDC-150';
+        ElementR = 0.005;
+        NumRadius = 20;
+        NumAngle = 20;
+        freq = 1.36e6;
 end
 filename = [trans_name,filename];
 TDATA = load([trans_name,'.txt']);
@@ -70,10 +88,8 @@ phasemat = [];
 U = ExciteEfficiency(U,H,PControl);
 U = angle(U);
 % Intensity3D
-U=floor((U+pi)/2/pi*256);%将相位化为整数使用
-U=255-U;
-phaseChange = [25,53,56:64];
-U(phaseChange) = 255-U(phaseChange);
+U=pi-U;%反相
+
 
 
 phasemat = [phasemat;U'];
@@ -85,16 +101,17 @@ if PHSE
     [phsfilename,phsfilepath] = uigetfile('*.txt','选择相位误差文件');
     phsedata = load(fullfile(phsfilepath,phsfilename));
     phasemat = phasemat+phsedata';
-    phasemat = mod(phasemat,255);
+    phasemat = mod(phasemat,2*pi);
 end
 
 if BIGF
     [phsfilename,phsfilepath] = uigetfile('*.txt','选择bigfocus文件');
     phsedata = load(fullfile(phsfilepath,phsfilename));
     phasemat = phasemat+phsedata';
-    phasemat = mod(phasemat,255);
+    phasemat = mod(phasemat,2*pi);
 end
-
+% phaseChange = [25,53,56:64];
+% phasemat(phaseChange) = 255-phasemat(phaseChange);
 fid=fopen(A110txtname,'w') ;  %打开文件
 % for i = 1:numel(phasemat)
 fprintf(fid,'%d\r\n',phasemat);
